@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Recommend from '../src/components/Recommend'
+import Dashboard from '../src/components/Dasboard'
+import Podcasts from '../src/components/Podcasts'
+import Home from '../src/components/Home'
+import { UserContext } from './contexts/UserContext';
+import { useState } from 'react'
+
 
 function App() {
+  const [user, setUser] = useState('Lizzy')
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+
+      <Router>
+        <UserContext.Provider value={[user, setUser]}>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/dashboard' element={<Dashboard />} />
+            <Route path='/recommend' element={<Recommend />} />
+            <Route path='/podcasts' element={<Podcasts />} />
+          </Routes>
+        </UserContext.Provider>
+      </Router>
     </div>
   );
 }
